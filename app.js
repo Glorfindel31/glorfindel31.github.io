@@ -100,9 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
             gameMatrix[x][y] === gameMatrix[x - 2][y + 2] &&
             gameMatrix[x][y] === gameMatrix[x - 3][y + 3])
         ) {
-          gameWon = true;
           renderMessage(`The Winner is Player ${player === 1 ? 2 : 1}!`);
-          (player === 1 ? 2 : 1) === 1 ? score.p1++ : score.p2++;
+          if (!gameWon) (player === 1 ? 2 : 1) === 1 ? score.p1++ : score.p2++;
+          gameWon = true;
           setScores(score.p1, score.p2);
         }
         if (draw) {
@@ -115,30 +115,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const game = () => {
     // adding event listener to each cell
-    if (!gameWon) {
-      document.querySelectorAll('.grid').forEach((cell) => {
-        cell.addEventListener('click', (e) => {
-          //checking if the cell is already occupied
-          for (let i = 5; i >= 0; i--) {
-            if (
-              gameMatrix[i][Number(e.target.dataset.y)] === 0 &&
-              gameWon === false
-            ) {
-              gameMatrix[i][Number(e.target.dataset.y)] = playerState;
-              renderToken();
-              playerState === 1 ? (playerState = 2) : (playerState = 1);
-              renderMessage(`Player 0${playerState} Turns`);
-              break;
-            }
+
+    document.querySelectorAll('.grid').forEach((cell) => {
+      cell.addEventListener('click', (e) => {
+        //checking if the cell is already occupied
+        for (let i = 5; i >= 0; i--) {
+          if (
+            gameMatrix[i][Number(e.target.dataset.y)] === 0 &&
+            gameWon === false
+          ) {
+            gameMatrix[i][Number(e.target.dataset.y)] = playerState;
+            renderToken();
+            playerState === 1 ? (playerState = 2) : (playerState = 1);
+            renderMessage(`Player 0${playerState} Turns`);
+            break;
           }
-          //check for draw
-          clickCount++;
-          console.log(clickCount);
-          clickCount === 42 ? (draw = gameWon = true) : null;
-          checkWin(playerState);
-        });
+        }
+        //check for draw
+        clickCount++;
+        clickCount === 42 ? (draw = gameWon = true) : null;
+        checkWin(playerState);
       });
-    }
+    });
   };
 
   resetBoardEl.addEventListener('click', () => {
