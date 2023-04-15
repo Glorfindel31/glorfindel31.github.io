@@ -1,0 +1,64 @@
+:root {
+  --color1: #4b3e72;
+  --color2: #e7b577;
+  --color3: #ea5554;
+  --color4: #188375;
+  --mult: 4;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  background-color: var(--color1);
+  color: var(--color2);
+  font-size: 2vh;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container__titles {
+  padding: 0.5em;
+  text-align: center;
+}
+.game-title {
+  font-family: 'Lilita One', cursive;
+  text-transform: uppercase;
+  margin: 0.5em;
+}
+.reset-btn,
+.reset-btn::after,
+.reset-btn::before {
+  border: none;
+  border-radius: 0.2em;
+  margin: 1em;
+  font-size: 1em;
+  padding: 0.2em 0.5em 0.2em 0.5em;
+  background-color: var(--color2);
+  color: var(--color1);
+}
+.reset-btn:hover {
+  box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.311);
+}
+.reset-btn:active {
+  box-shadow: none;
+}
+.board-container {
+  padding: calc(0.1em * var(--mult));
+  border-radius: calc(0.2em * var(--mult));
+  background-color: var(--color2);
+  display: grid;
+  grid-template: repeat(6, 1fr) / repeat(7, 1fr);
+  height: calc(6em * var(--mult));
+  width: calc(7em * var(--mult));
+}
+.grid {
+  border-radius: 50%;
+  margin: calc(0.1em * var(--mult));
+  background-color: var(--color1);
+}
