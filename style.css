@@ -62,3 +62,11 @@ body {
   margin: calc(0.1em * var(--mult));
   background-color: var(--color1);
 }
+.token1 {
+  background-color: var(--color4);
+  border: calc(0.1em * var(--mult)) solid #166e63;
+}
+.token2 {
+  background-color: var(--color3);
+  border: calc(0.1em * var(--mult)) solid #c14545;
+}
