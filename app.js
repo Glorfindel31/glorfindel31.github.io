@@ -9,7 +9,7 @@ let gameMatrix = [
   [0, 0, 0, 0, 0, 0, 0],
 ];
 document.addEventListener('DOMContentLoaded', () => {
-  let gameState = 0;
+  let playerState = 1;
 
   for (let i = 0; i < gameMatrix.length; i++) {
     for (let j = 0; j < gameMatrix[i].length; j++) {
@@ -21,28 +21,33 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.board-container').append(cell);
     }
   }
+
   const renderToken = () => {
     for (let i = 0; i < gameMatrix.length; i++) {
       for (let j = 0; j < gameMatrix[i].length; j++) {
-        if (gameMatrix[i][j] === 1) {
+        if (gameMatrix[i][j] !== 0) {
           document
             .querySelector(`[data-x="${i}"][data-y="${j}"]`)
-            .classList.add('token1');
+            .classList.add(`token${gameMatrix[i][j]}`);
         }
       }
     }
   };
+
   document.querySelectorAll('.grid').forEach((cell) => {
     cell.addEventListener('click', (e) => {
-      if (gameState === 0) {
-        for (let i = 0; i < gameMatrix.length; i++) {
-          for (let j = 0; j < gameMatrix[i].length; j++) {
-            if (e.target.dataset['y'] === j.toString()) {
-              console.log(e.target.dataset['y']);
-            }
-          }
+      let x = Number(e.target.dataset.x);
+      let y = Number(e.target.dataset.y);
+      console.log(playerState);
+      for (let i = 5; i >= 0; i--) {
+        if (gameMatrix[i][y] === 0) {
+          gameMatrix[i][y] = playerState;
+          renderToken();
+          playerState === 1 ? (playerState = 2) : (playerState = 1);
+          break;
         }
       }
+      console.log(gameMatrix);
     });
   });
 });
