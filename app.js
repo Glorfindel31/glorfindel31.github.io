@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   //variables
   let gameMatrix;
   let gameWon = false;
+  let draw = false;
+  let clickCount = 0;
   let playerState = 1;
   let score = {
     p1: 0,
@@ -93,16 +95,19 @@ document.addEventListener('DOMContentLoaded', () => {
             gameMatrix[x][y] === gameMatrix[x + 2][y + 2] &&
             gameMatrix[x][y] === gameMatrix[x + 3][y + 3]) ||
           (gameMatrix[x][y] !== 0 &&
-            y > 2 &&
-            x > 1 &&
-            gameMatrix[x][y] === gameMatrix[x - 1][y - 1] &&
-            gameMatrix[x][y] === gameMatrix[x - 2][y - 2] &&
-            gameMatrix[x][y] === gameMatrix[x - 3][y - 3])
+            x > 3 &&
+            gameMatrix[x][y] === gameMatrix[x - 1][y + 1] &&
+            gameMatrix[x][y] === gameMatrix[x - 2][y + 2] &&
+            gameMatrix[x][y] === gameMatrix[x - 3][y + 3])
         ) {
           gameWon = true;
           renderMessage(`The Winner is Player ${player === 1 ? 2 : 1}!`);
           (player === 1 ? 2 : 1) === 1 ? score.p1++ : score.p2++;
           setScores(score.p1, score.p2);
+        }
+        if (draw) {
+          gameWon = true;
+          renderMessage(`It's a Tie, Play again!!!`);
         }
       }
     }
@@ -125,6 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
           }
         }
+        //check for draw
+        clickCount++;
+        console.log(clickCount);
+        clickCount === 42 ? (draw = gameWon = true) : null;
         checkWin(playerState);
       });
     });
@@ -137,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMessage(`Player 0${playerState === 1 ? 1 : 2} Turns`);
     playerState = playerState === 1 ? 1 : 2;
     gameWon = false;
+    draw = false;
+    clickCount = 0;
   });
 
   resetGameEl.addEventListener('click', () => {
@@ -146,6 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMessage(`Player 0${1} Turns`);
     playerState = 1;
     gameWon = false;
+    draw = false;
+    clickCount = 0;
   });
 
   drawBoard();
