@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  //rendering the tokens
+
   const renderToken = () => {
     for (let i = 0; i < gameMatrix.length; i++) {
       for (let j = 0; j < gameMatrix[i].length; j++) {
