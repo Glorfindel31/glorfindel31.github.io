@@ -26,10 +26,26 @@ body {
   padding: 0.5em;
   text-align: center;
 }
+.scores {
+  padding: 0.5em;
+}
+.player01 {
+  background-color: var(--color4);
+  border-radius: 0.2em;
+  border: calc(0.05em * var(--mult)) solid #166e63;
+  padding: 0.2em;
+}
+.player02 {
+  background-color: var(--color3);
+  border-radius: 0.2em;
+  border: calc(0.05em * var(--mult)) solid #c14545;
+  padding: 0.2em;
+}
 .game-title {
+  font-size: 5em;
   font-family: 'Lilita One', cursive;
   text-transform: uppercase;
-  margin: 0.5em;
+  margin: 0.2em;
 }
 .reset-btn,
 .reset-btn::after,
@@ -39,11 +55,12 @@ body {
   margin: 1em;
   font-size: 1em;
   padding: 0.2em 0.5em 0.2em 0.5em;
+  outline: calc(0.05em * var(--mult)) solid #8d6b42;
   background-color: var(--color2);
   color: var(--color1);
 }
 .reset-btn:hover {
-  box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.311);
+  box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.311);
 }
 .reset-btn:active {
   box-shadow: none;
@@ -51,6 +68,7 @@ body {
 .board-container {
   padding: calc(0.1em * var(--mult));
   border-radius: calc(0.2em * var(--mult));
+  outline: calc(0.05em * var(--mult)) solid #8d6b42;
   background-color: var(--color2);
   display: grid;
   grid-template: repeat(6, 1fr) / repeat(7, 1fr);
@@ -59,8 +77,12 @@ body {
 }
 .grid {
   border-radius: 50%;
+  outline: calc(0.05em * var(--mult)) solid #8d6b42;
   margin: calc(0.1em * var(--mult));
   background-color: var(--color1);
+}
+.grid:hover {
+  outline: calc(0.05em * var(--mult)) solid #ffe3c0;
 }
 .token1 {
   background-color: var(--color4);
