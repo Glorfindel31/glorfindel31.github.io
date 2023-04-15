@@ -115,28 +115,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const game = () => {
     // adding event listener to each cell
-    document.querySelectorAll('.grid').forEach((cell) => {
-      cell.addEventListener('click', (e) => {
-        //checking if the cell is already occupied
-        for (let i = 5; i >= 0; i--) {
-          if (
-            gameMatrix[i][Number(e.target.dataset.y)] === 0 &&
-            gameWon === false
-          ) {
-            gameMatrix[i][Number(e.target.dataset.y)] = playerState;
-            renderToken();
-            playerState === 1 ? (playerState = 2) : (playerState = 1);
-            renderMessage(`Player 0${playerState} Turns`);
-            break;
+    if (!gameWon) {
+      document.querySelectorAll('.grid').forEach((cell) => {
+        cell.addEventListener('click', (e) => {
+          //checking if the cell is already occupied
+          for (let i = 5; i >= 0; i--) {
+            if (
+              gameMatrix[i][Number(e.target.dataset.y)] === 0 &&
+              gameWon === false
+            ) {
+              gameMatrix[i][Number(e.target.dataset.y)] = playerState;
+              renderToken();
+              playerState === 1 ? (playerState = 2) : (playerState = 1);
+              renderMessage(`Player 0${playerState} Turns`);
+              break;
+            }
           }
-        }
-        //check for draw
-        clickCount++;
-        console.log(clickCount);
-        clickCount === 42 ? (draw = gameWon = true) : null;
-        checkWin(playerState);
+          //check for draw
+          clickCount++;
+          console.log(clickCount);
+          clickCount === 42 ? (draw = gameWon = true) : null;
+          checkWin(playerState);
+        });
       });
-    });
+    }
   };
 
   resetBoardEl.addEventListener('click', () => {
