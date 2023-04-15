@@ -100,9 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
             gameMatrix[x][y] === gameMatrix[x - 2][y + 2] &&
             gameMatrix[x][y] === gameMatrix[x - 3][y + 3])
         ) {
-          gameWon = true;
           renderMessage(`The Winner is Player ${player === 1 ? 2 : 1}!`);
-          (player === 1 ? 2 : 1) === 1 ? score.p1++ : score.p2++;
+          if (!gameWon) (player === 1 ? 2 : 1) === 1 ? score.p1++ : score.p2++;
+          gameWon = true;
           setScores(score.p1, score.p2);
         }
         if (draw) {
@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const game = () => {
     // adding event listener to each cell
+
     document.querySelectorAll('.grid').forEach((cell) => {
       cell.addEventListener('click', (e) => {
         //checking if the cell is already occupied
@@ -132,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         //check for draw
         clickCount++;
-        console.log(clickCount);
         clickCount === 42 ? (draw = gameWon = true) : null;
         checkWin(playerState);
       });
