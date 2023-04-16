@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let gameMatrix;
   let gameWon = false;
   let draw = false;
-  let clickCount = 0;
   let playerState = 1;
   let score = {
     p1: 0,
@@ -52,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-
+  //rendering the tokens
   const renderToken = () => {
     for (let i = 0; i < gameMatrix.length; i++) {
       for (let j = 0; j < gameMatrix[i].length; j++) {
@@ -132,8 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
         //check for draw
-        clickCount++;
-        clickCount === 42 ? (draw = gameWon = true) : null;
+        gameMatrix.flat().reduce((a, b) => a + b, 0) > 62
+          ? (draw = true)
+          : (draw = false);
         checkWin(playerState);
       });
     });
@@ -147,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
     playerState = playerState === 1 ? 1 : 2;
     gameWon = false;
     draw = false;
-    clickCount = 0;
   });
 
   resetGameEl.addEventListener('click', () => {
@@ -158,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     playerState = 1;
     gameWon = false;
     draw = false;
-    clickCount = 0;
   });
 
   drawBoard();
