@@ -1,8 +1,65 @@
 :root {
-  --color1: #4b3e72;
-  --color2: #e7b577;
-  --color3: #ea5554;
-  --color4: #188375;
+  --color1: hsl(
+    var(--color1-h, 250),
+    var(--color1-s, 29%),
+    var(--color1-l, 34%)
+  );
+  --color1-h: 250;
+  --color1-s: 29%;
+  --color1-l: 34%;
+
+  --color2: hsl(
+    var(--color2-h, 34),
+    var(--color2-s, 73%),
+    var(--color2-l, 68%)
+  );
+  --color2-h: 34;
+  --color2-s: 73%;
+  --color2-l: 68%;
+
+  --color3: hsl(
+    var(--color3-h, 357),
+    var(--color3-s, 78%),
+    var(--color3-l, 61%)
+  );
+  --color3-h: 357;
+  --color3-s: 78%;
+  --color3-l: 61%;
+
+  --color4: hsl(
+    var(--color4-h, 171),
+    var(--color4-s, 63%),
+    var(--color4-l, 28%)
+  );
+  --color4-h: 171;
+  --color4-s: 63%;
+  --color4-l: 28%;
+
+  --color1-darker: hsl(
+    var(--color1-h),
+    var(--color1-s),
+    calc(var(--color1-l) - 5%)
+  );
+  --color2-darker: hsl(
+    var(--color2-h),
+    var(--color2-s),
+    calc(var(--color2-l) - 20%)
+  );
+  --color2-brighter: hsl(
+    var(--color2-h),
+    var(--color2-s),
+    calc(var(--color2-l) + 20%)
+  );
+  --color3-darker: hsl(
+    var(--color3-h),
+    var(--color3-s),
+    calc(var(--color3-l) - 5%)
+  );
+  --color4-darker: hsl(
+    var(--color4-h),
+    var(--color4-s),
+    calc(var(--color4-l) - 5%)
+  );
   --mult: 4;
 }
 * {
@@ -32,13 +89,13 @@ body {
 .player01 {
   background-color: var(--color4);
   border-radius: 0.2em;
-  border: calc(0.05em * var(--mult)) solid #166e63;
+  border: calc(0.05em * var(--mult)) solid var(--color4-darker);
   padding: 0.2em;
 }
 .player02 {
   background-color: var(--color3);
   border-radius: 0.2em;
-  border: calc(0.05em * var(--mult)) solid #c14545;
+  border: calc(0.05em * var(--mult)) solid var(--color3-darker);
   padding: 0.2em;
 }
 .game-title {
@@ -55,7 +112,7 @@ body {
   margin: 1em;
   font-size: 1em;
   padding: 0.2em 0.5em 0.2em 0.5em;
-  outline: calc(0.05em * var(--mult)) solid #8d6b42;
+  outline: calc(0.05em * var(--mult)) solid var(--color2-dark);
   background-color: var(--color2);
   color: var(--color1);
 }
@@ -68,7 +125,7 @@ body {
 .board-container {
   padding: calc(0.1em * var(--mult));
   border-radius: calc(0.2em * var(--mult));
-  outline: calc(0.05em * var(--mult)) solid #8d6b42;
+  outline: calc(0.05em * var(--mult)) solid var(--color2-darker);
   background-color: var(--color2);
   display: grid;
   grid-template: repeat(6, 1fr) / repeat(7, 1fr);
@@ -77,18 +134,18 @@ body {
 }
 .grid {
   border-radius: 50%;
-  outline: calc(0.05em * var(--mult)) solid #8d6b42;
+  outline: calc(0.05em * var(--mult)) solid var(--color2-darker);
   margin: calc(0.1em * var(--mult));
   background-color: var(--color1);
 }
 .grid:hover {
-  outline: calc(0.05em * var(--mult)) solid #ffe3c0;
+  outline: calc(0.05em * var(--mult)) solid var(--color2-brighter);
 }
 .token1 {
   background-color: var(--color4);
-  border: calc(0.1em * var(--mult)) solid #166e63;
+  border: calc(0.1em * var(--mult)) solid var(--color4-darker);
 }
 .token2 {
   background-color: var(--color3);
-  border: calc(0.1em * var(--mult)) solid #c14545;
+  border: calc(0.1em * var(--mult)) solid var(--color3-darker);
 }

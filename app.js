@@ -76,37 +76,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //function to check if the game is won
   const checkWin = (player) => {
-    for (let x = 0; x < gameMatrix.length; x++) {
-      for (let y = 0; y < gameMatrix[x].length; y++) {
-        if (
-          (gameMatrix[x][y] !== 0 &&
-            gameMatrix[x][y] === gameMatrix[x][y + 1] &&
-            gameMatrix[x][y] === gameMatrix[x][y + 2] &&
-            gameMatrix[x][y] === gameMatrix[x][y + 3]) ||
-          (gameMatrix[x][y] !== 0 &&
-            x < 3 &&
-            gameMatrix[x][y] === gameMatrix[x + 1][y] &&
-            gameMatrix[x][y] === gameMatrix[x + 2][y] &&
-            gameMatrix[x][y] === gameMatrix[x + 3][y]) ||
-          (gameMatrix[x][y] !== 0 &&
-            x < 3 &&
-            gameMatrix[x][y] === gameMatrix[x + 1][y + 1] &&
-            gameMatrix[x][y] === gameMatrix[x + 2][y + 2] &&
-            gameMatrix[x][y] === gameMatrix[x + 3][y + 3]) ||
-          (gameMatrix[x][y] !== 0 &&
-            x > 3 &&
-            gameMatrix[x][y] === gameMatrix[x - 1][y + 1] &&
-            gameMatrix[x][y] === gameMatrix[x - 2][y + 2] &&
-            gameMatrix[x][y] === gameMatrix[x - 3][y + 3])
-        ) {
-          renderMessage(`The Winner is Player ${player === 1 ? 2 : 1}!`);
-          if (!gameWon) (player === 1 ? 2 : 1) === 1 ? score.p1++ : score.p2++;
-          gameWon = true;
-          setScores(score.p1, score.p2);
-        }
-        if (draw) {
-          gameWon = true;
-          renderMessage(`It's a Tie, Play again!!!`);
+    if (gameMatrix.flat().reduce((a, b) => a + b) > 9) {
+      const isWinningMove = (x, y, dx, dy) => {
+        return (
+          gameMatrix[x][y] === gameMatrix[x + dx][y + dy] &&
+          gameMatrix[x][y] === gameMatrix[x + dx * 2][y + dy * 2] &&
+          gameMatrix[x][y] === gameMatrix[x + dx * 3][y + dy * 3]
+        );
+      };
+      const isWinningMoveHorizontal = (x, y) => isWinningMove(x, y, 0, 1);
+      const isWinningMoveVertical = (x, y) => isWinningMove(x, y, 1, 0);
+      const isWinningMoveDiagonal1 = (x, y) => isWinningMove(x, y, 1, 1);
+      const isWinningMoveDiagonal2 = (x, y) => isWinningMove(x, y, -1, 1);
+      const isNotEmpty = (x, y) => gameMatrix[x][y] !== 0;
+
+      for (let x = 0; x < gameMatrix.length; x++) {
+        for (let y = 0; y < gameMatrix[x].length; y++) {
+          if (
+            isNotEmpty(x, y) &&
+            (isWinningMoveHorizontal(x, y) ||
+              (x < 3 && isWinningMoveVertical(x, y)) ||
+              (x < 3 && isWinningMoveDiagonal1(x, y)) ||
+              (x > 2 && isWinningMoveDiagonal2(x, y)))
+          ) {
+            renderMessage(`The Winner is Player ${player}!`);
+            if (!gameWon) {
+              player === 1 ? score.p2++ : score.p1x++;
+            }
+            gameWon = true;
+            setScores(score.p1, score.p2);
+            return;
+          }
+
+          if (draw) {
+            gameWon = true;
+            renderMessage(`It's a Tie, Play again!!!`);
+          }
         }
       }
     }
