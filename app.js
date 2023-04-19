@@ -183,10 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  //color switcher
   switchEl.addEventListener('change', (e) =>
     e.target.checked ? setColors(myColors02) : setColors(myColors01)
   );
 
+  // reset board
   resetBoardEl.addEventListener('click', () => {
     setMatrix();
     setScores(score.p1, score.p2);
@@ -197,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     draw = false;
   });
 
+  // new game
   resetGameEl.addEventListener('click', () => {
     setMatrix();
     setScores();
