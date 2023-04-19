@@ -1,6 +1,36 @@
 'useStrict';
 //on load function
 document.addEventListener('DOMContentLoaded', () => {
+  // colors
+  const myColors01 = {
+    '--color1-h': '178',
+    '--color1-s': '47%',
+    '--color1-l': '52%',
+    '--color4-h': '229',
+    '--color4-s': '31%',
+    '--color4-l': '27%',
+    '--color2-h': '175',
+    '--color2-s': '0%',
+    '--color2-l': '100%',
+    '--color3-h': '354',
+    '--color3-s': '87%',
+    '--color3-l': '67%',
+  };
+  const myColors02 = {
+    '--color1-h': '250',
+    '--color1-s': '29%',
+    '--color1-l': '34%',
+    '--color2-h': '34',
+    '--color2-s': '73%',
+    '--color2-l': '68%',
+    '--color3-h': '357',
+    '--color3-s': '78%',
+    '--color3-l': '61%',
+    '--color4-h': '171',
+    '--color4-s': '63%',
+    '--color4-l': '28%',
+  };
+
   //variables
   let gameMatrix;
   let gameWon = false;
@@ -16,6 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const scoresEl = document.querySelector('.scores');
   const resetBoardEl = document.querySelector('.board');
   const resetGameEl = document.querySelector('.game');
+  const switchEl = document.querySelector('.checkbox');
+  const rootEl = document.querySelector(':root');
+
+  //set colors
+  const setColors = (colors) => {
+    Object.entries(colors).forEach((c) => rootEl.style.setProperty(c[0], c[1]));
+  };
+  switchEl;
+  setColors(myColors01);
 
   //set matrix to Zeros
   const setMatrix = () =>
@@ -143,6 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   };
+
+  switchEl.addEventListener('change', (e) =>
+    e.target.checked ? setColors(myColors02) : setColors(myColors01)
+  );
 
   resetBoardEl.addEventListener('click', () => {
     setMatrix();

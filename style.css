@@ -4,36 +4,36 @@
     var(--color1-s, 29%),
     var(--color1-l, 34%)
   );
-  --color1-h: 250;
+  /* --color1-h: 250;
   --color1-s: 29%;
-  --color1-l: 34%;
+  --color1-l: 34%; */
 
   --color2: hsl(
     var(--color2-h, 34),
     var(--color2-s, 73%),
     var(--color2-l, 68%)
   );
-  --color2-h: 34;
+  /* --color2-h: 34;
   --color2-s: 73%;
-  --color2-l: 68%;
+  --color2-l: 68%; */
 
   --color3: hsl(
     var(--color3-h, 357),
     var(--color3-s, 78%),
     var(--color3-l, 61%)
   );
-  --color3-h: 357;
+  /* --color3-h: 357;
   --color3-s: 78%;
-  --color3-l: 61%;
+  --color3-l: 61%; */
 
   --color4: hsl(
     var(--color4-h, 171),
     var(--color4-s, 63%),
     var(--color4-l, 28%)
   );
-  --color4-h: 171;
+  /* --color4-h: 171;
   --color4-s: 63%;
-  --color4-l: 28%;
+  --color4-l: 28%; */
 
   --color1-darker: hsl(
     var(--color1-h),
@@ -72,15 +72,16 @@
 body {
   background-color: var(--color1);
   color: var(--color2);
-  font-size: 2vh;
+  font-size: 3vh;
 }
 .main-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 5em;
 }
 .container__titles {
-  padding: 0.5em;
+  padding: 3em;
   text-align: center;
 }
 .scores {
@@ -148,4 +149,91 @@ body {
 .token2 {
   background-color: var(--color3);
   border: calc(0.1em * var(--mult)) solid var(--color3-darker);
+}
+.switch-container {
+  padding: 2em;
+}
+
+/* Button 1 */
+#button-1 .knobs:before {
+  content: '01';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 10px;
+  color: var(--color2);
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 9px 4px;
+  background-color: var(--color4);
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+
+#button-1 .checkbox:checked + .knobs:before {
+  content: '02';
+  left: 42px;
+  background-color: var(--color3);
+}
+
+#button-1 .checkbox:checked ~ .layer {
+  background-color: var(--color2);
+}
+
+#button-1 .knobs,
+#button-1 .knobs:before,
+#button-1 .layer {
+  transition: 0.3s ease all;
+}
+
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  position: relative;
+  top: 50%;
+  width: 74px;
+  height: 36px;
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: var(--color2);
+  transition: 0.3s ease all;
+  z-index: 1;
 }
